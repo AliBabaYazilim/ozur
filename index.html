@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sana Özel Canlı Lale Bahçesi ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. ADIM: TEMEL SIFIRLAMA (RESET) */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            background: radial-gradient(circle at center, #fff5f8 0%, #ffe4ec 70%, #ffc1d1 100%);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden; /* Süsler ekrandan taşmasın */
+            position: relative;
+        }
+
+        /* 2. ADIM: ARKA PLAN SÜSLERİ (Uçuşan Işık Böcekleri) */
+        #particles {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+        }
+        .particle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: floatParticles 12s linear infinite;
+        }
+        @keyframes floatParticles {
+            0% { transform: translateY(110vh) scale(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.3); opacity: 0; }
+        }
+
+        /* 3. ADIM: GARDEN BOX (Çiçeklerin Alanı - Kayma Buradan Engellendi) */
+        .garden-box {
+            position: relative;
+            width: 100%; /* Mobil uyum */
+            max-width: 360px; /* PC uyum */
+            height: 50vh; /* Ekranın yarısı */
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; /* Hepsi tabandan başlar */
+            z-index: 10;
+        }
+
+        /* Vazo (Buzlu Cam Efekti) */
+        .vase {
+            width: 100px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 15px 15px 50px 50px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 5;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(216, 27, 96, 0.15);
+        }
+        .vase::after {
+            content: '';
+            position: absolute;
+            top: 10%; left: 15%;
+            width: 25%; height: 35%;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+            filter: blur(5px);
+        }
+
+        /* Çiçeklerin Konteyneri */
+        .flowers-container {
+            position: absolute;
+            bottom: 70px; /* Vazonun içinden başlasın */
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            width: 100%;
+        }
+
+        /* 4. ADIM: LALE TASARIMI (3D, GRADIENT, SÜSLÜ YAPRAKLI) */
+        .tulip {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform-origin: bottom center;
+        }
+
+        /* LALE BAŞI */
+        .tulip-head {
+            width: 55px;
+            height: 65px;
+            border-radius: 30px 30px 20px 20px;
+            position: relative;
+            box-shadow: inset -7px -13px 25px rgba(0,0,0,0.2), 0 5px 15px rgba(216, 27, 96, 0.1);
+            opacity: 0;
+            animation: headPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .tulip-head::before, .tulip-head::after {
+            content: '';
+            position: absolute;
+            top: -7px;
+            width: 34px;
+            height: 54px;
+            background: inherit;
+            border-radius: 25px 25px 8px 8px;
+            filter: brightness(1.2);
+            box-shadow: inset 3px 3px 10px rgba(255,255,255,0.3);
+        }
+        .tulip-head::before { left: -8px; transform: rotate(-22deg); }
+        .tulip-head::after { right: -8px; transform: rotate(22deg); }
+
+        /* SAP (BÜYÜME VE YAPRAKLAR) */
+        .stem {
+            width: 8px;
+            height: 0;
+            background: linear-gradient(to bottom, #4caf50 0%, #2d5a27 100%);
+            border-radius: 12px;
+            animation: stemGrow 3s ease-out forwards;
+            position: relative;
+        }
+        /* Sap Yaprakları (Organik ve Büyüyen) */
+        .stem::before, .stem::after {
+            content: '';
+            position: absolute;
+            background: linear-gradient(135deg, #4caf50 0%, #2d5a27 100%);
+            border-radius: 0 100px 0 100px;
+            opacity: 0;
+            animation: leafAppear 1.2s ease-out forwards;
+        }
+        .stem::before {
+            width: 28px; height: 18px;
+            left: -22px; top: 35%;
+            transform: rotate(-30deg) scale(0);
+            animation-delay: 1.8s;
+        }
+        .stem::after {
+            width: 35px; height: 20px;
+            right: -28px; top: 55%;
+            transform: rotate(15deg) scale(0);
+            animation-delay: 2.3s;
+        }
+
+        /* ANIMASYON TANIMLARI */
+        @keyframes stemGrow { 0% { height: 0; } 100% { height: 260px; } }
+        @keyframes headPop { 0% { opacity: 0; transform: scale(0) translateY(25px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes leafAppear { 0% { opacity: 0; transform: scale(0) rotate(inherit); } 100% { opacity: 1; transform: scale(1) rotate(inherit); } }
+
+        /* 5. ADIM: LALE DİZİLİMİ VE GECİKMELER (Kayma Buradan Engellendi) */
+        .t1 { transform: rotate(-35deg); }
+        .t1 .tulip-head { background: linear-gradient(135deg, #ff1744 0%, #d81b60 100%); animation-delay: 0.7s; }
+        .t1 .stem { animation-delay: 0.4s; }
+
+        .t2 { transform: rotate(-15deg); }
+        .t2 .tulip-head { background: linear-gradient(135deg, #f50057 0%, #ad1457 100%); animation-delay: 1.2s; }
+        .t2 .stem { animation-delay: 0.9s; }
+
+        .t3 { transform: rotate(0deg); }
+        .t3 .tulip-head { background: linear-gradient(135deg, #d81b60 0%, #880e4f 100%); animation-delay: 1.7s; }
+        .t3 .stem { animation-delay: 1.4s; }
+
+        .t4 { transform: rotate(15deg); }
+        .t4 .tulip-head { background: linear-gradient(135deg, #ff4081 0%, #f50057 100%); animation-delay: 2.2s; }
+        .t4 .stem { animation-delay: 1.9s; }
+
+        .t5 { transform: rotate(35deg); }
+        .t5 .tulip-head { background: linear-gradient(135deg, #ad1457 0%, #ff1744 100%); animation-delay: 2.7s; }
+        .t5 .stem { animation-delay: 2.4s; }
+
+        /* 6. ADIM: MESAJ VE BUTON (ZARİF, PARLAYAN) */
+        .ui-content {
+            position: relative;
+            z-index: 20;
+            margin-top: 20px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 2.5s forwards 5.5s; /* Çiçekler bitince */
+            padding: 0 20px;
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; color: #880e4f; font-size: 2.6rem; margin-bottom: 5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        p { color: #555; font-size: 1rem; line-height: 1.5; font-weight: 300; }
+
+        .btn-wp {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 15px 40px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 25px rgba(37,211,102,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-wp::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 70%);
+            transform: rotate(45deg);
+            animation: btnShine 3s infinite;
+        }
+        @keyframes btnShine { 0% { left: -50%; } 100% { left: 150%; } }
+        .btn-wp:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(37,211,102,0.5); }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="particles"></div>
+
+    <div class="garden-box">
+        <div class="flowers-container">
+            <div class="tulip t1"><div class="tulip-head"></div><div class="stem"></div></div>
+            <div class="tulip t2"><div class="tulip-head"></div><div class="stem"></div></div>
+            <div class="tulip t3"><div class="tulip-head"></div><div class="stem"></div></div>
+            <div class="tulip t4"><div class="tulip-head"></div><div class="stem"></div></div>
+            <div class="tulip t5"><div class="tulip-head"></div><div class="stem"></div></div>
+        </div>
+        <div class="vase"></div>
+    </div>
+
+    <div class="ui-content">
+        <h1>Canım Teyzem ❤️</h1>
+        <p>Seni kırdığım için gerçekten çok üzgünüm.<br>Bu dijital bahçeyi senin için büyüttüm, lütfen beni affet.</p>
+        <a href="https://wa.me/905546789872?text=Laleler+cok+guzel+affettim+seni" class="btn-wp">Beni Affettin mi? 🌷</a>
+    </div>
+
+    <script>
+        // Arka planda uçuşan ışıklar oluşturma (Mobil için 20 tane)
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.top = Math.random() * 100 + 'vh';
+            const size = Math.random() * 5 + 2 + 'px';
+            p.style.width = p.style.height = size;
+            p.style.animationDelay = Math.random() * 12 + 's';
+            p.style.animationDuration = Math.random() * 6 + 6 + 's';
+            particlesContainer.appendChild(p);
+        }
+    </script>
+</body>
+</html>
